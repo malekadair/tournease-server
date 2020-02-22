@@ -1,0 +1,3 @@
+TRUNCATE
+  tournaments
+  RESTART IDENTITY CASCADE;
