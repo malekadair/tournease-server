@@ -15,6 +15,12 @@ const TournamentsService = {
       .returning("*")
       .then(([tournament]) => tournament)
       .then(tournament => TournamentsService.getById(db, tournament.id));
+  },
+  deleteTournament(db, id) {
+    return db.where("tournaments.id", id).delete();
+  },
+  updateTournament(db, id, newTournamentFields) {
+    return db.where({ id }).update(newTournamentFields);
   }
 };
 

@@ -45,9 +45,20 @@ tournamentsRouter
   .route("/:tourney_id")
   // .all(requireAuth)
   .all(checkTournamentExists)
+
   .get((req, res) => {
     res.json(res.tournament);
+  })
+  .delete((req, res, next) => {
+    res.status(204).end();
   });
+// .delete((req, res, next) => {
+//   TournamentsService.deleteTournament(req.app.get("db"), res.tournament.id)
+//     .then(numRowsAffected => {
+//       res.status(204).end();
+//     })
+//     .catch(next);
+// });
 
 async function checkTournamentExists(req, res, next) {
   try {
