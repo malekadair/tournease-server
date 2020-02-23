@@ -4,7 +4,7 @@ TRUNCATE
   tournaments
   RESTART IDENTITY CASCADE;
 
-INSERT INTO tournaments (title, date, time, game, fee, address, moreDetails)
+INSERT INTO tournaments (title, date, time, game, fee, address, moredetails)
 VALUES
   ('10 ball extravaganza', '2020-05-16', 11, '9-Ball', 20, '123 main st', 'Non exercitation minim aliquip duis proident officia velit consequat in ex tempor non laboris id.'), 
   ('US Open', '2020-11-1', 12, '8-Ball', 30, '444 W Jackson', 'Amet esse pariatur est aliquip.'), 

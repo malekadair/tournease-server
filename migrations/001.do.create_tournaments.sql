@@ -1,5 +1,6 @@
+DROP TYPE IF EXISTS game_type;
 CREATE TYPE game_type AS ENUM('8-Ball','9-Ball','10-Ball','Straight','OnePocket');
-
+	
 CREATE TABLE tournaments (
   id SERIAL PRIMARY KEY,
   title VARCHAR(120),
@@ -8,14 +9,5 @@ CREATE TABLE tournaments (
 	game game_type,
 	fee INT,
 	address VARCHAR(120),
-	moreDetails VARCHAR
-);
-
-
-  title ,
-  date ,
-  time ,
-	game ,
-	fee ,
-	address,
-	moreDetails 
+	moredetails VARCHAR(500)
+)

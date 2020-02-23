@@ -14,7 +14,7 @@ tournamentsRouter
       .catch(next);
   })
   .post(jsonBodyParser, (req, res, next) => {
-    const { title, date, time, game, fee, address, moreDetails } = req.body;
+    const { title, date, time, game, fee, address, moredetails } = req.body;
     const newTournament = {
       title,
       date,
@@ -22,7 +22,7 @@ tournamentsRouter
       game,
       fee,
       address,
-      moreDetails
+      moredetails
     };
 
     for (const [key, value] of Object.entries(newTournament))
@@ -35,7 +35,7 @@ tournamentsRouter
       .then(tournament => {
         res
           .status(201)
-          .location(path.posix.join(req.originalUrl, `/${tournament.id}`))
+          // .location(path.posix.join(req.originalUrl, `/${tournament.id}`))
           .json(tournament);
       })
       .catch(next);

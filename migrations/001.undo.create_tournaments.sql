@@ -1,1 +1,2 @@
 DROP TABLE IF EXISTS tournaments;
+DROP TYPE IF EXISTS game_type;
