@@ -61,7 +61,7 @@ tournamentsRouter
   .all(checkTournamentExists)
 
   .get((req, res) => {
-    res.json(serializeTournament(tournament));
+    res.json(serializeTournament(res.tournament));
   })
   .delete((req, res, next) => {
     res.status(204).end();
