@@ -1,19 +1,33 @@
+const path = require("path");
 const express = require("express");
 const TournamentsService = require("./tournaments-service");
 const jsonBodyParser = express.json();
+const xss = require("xss");
+const { requireAuth } = require("../middleware/jwt-auth");
 
 const tournamentsRouter = express.Router();
+
+const serializeTournament = tournament => ({
+  id: xss(tournament.id),
+  title: xss(tournament.title),
+  date: xss(tournament.date),
+  time: xss(tournament.time),
+  game: xss(tournament.game),
+  fee: xss(tournament.fee),
+  address: xss(tournament.address),
+  moredetails: xss(tournament.moredetails)
+});
 
 tournamentsRouter
   .route("/")
   .get((req, res, next) => {
     TournamentsService.getAllTournaments(req.app.get("db"))
       .then(tournaments => {
-        res.json(tournaments);
+        res.json(tournaments.map(serializeTournament));
       })
       .catch(next);
   })
-  .post(jsonBodyParser, (req, res, next) => {
+  .post(requireAuth, jsonBodyParser, (req, res, next) => {
     const { title, date, time, game, fee, address, moredetails } = req.body;
     const newTournament = {
       title,
@@ -30,12 +44,12 @@ tournamentsRouter
         return res.status(400).json({
           error: `Missing '${key}' in request body`
         });
-    // newTournament.user_id = req.user.id;
+    newTournament.user_id = req.user.id;
     TournamentsService.insertTournament(req.app.get("db"), newTournament)
       .then(tournament => {
         res
           .status(201)
-          // .location(path.posix.join(req.originalUrl, `/${tournament.id}`))
+          .location(path.posix.join(req.originalUrl, `/${tournament.id}`))
           .json(tournament);
       })
       .catch(next);
@@ -43,22 +57,15 @@ tournamentsRouter
 
 tournamentsRouter
   .route("/:tourney_id")
-  // .all(requireAuth)
+  .all(requireAuth)
   .all(checkTournamentExists)
 
   .get((req, res) => {
-    res.json(res.tournament);
+    res.json(serializeTournament(tournament));
   })
   .delete((req, res, next) => {
     res.status(204).end();
   });
-// .delete((req, res, next) => {
-//   TournamentsService.deleteTournament(req.app.get("db"), res.tournament.id)
-//     .then(numRowsAffected => {
-//       res.status(204).end();
-//     })
-//     .catch(next);
-// });
 
 async function checkTournamentExists(req, res, next) {
   try {

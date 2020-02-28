@@ -1,3 +1,4 @@
 TRUNCATE
-  tournaments
+  tournaments,
+  users
   RESTART IDENTITY CASCADE;
