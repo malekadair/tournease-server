@@ -44,7 +44,6 @@ tournamentsRouter
         return res.status(400).json({
           error: `Missing '${key}' in request body`
         });
-    newTournament.user_id = req.user.id;
     TournamentsService.insertTournament(req.app.get("db"), newTournament)
       .then(tournament => {
         res
