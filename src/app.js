@@ -9,7 +9,13 @@ const tournamentsRouter = require("./tournaments/tournaments-router");
 const authRouter = require("./auth/auth-router");
 
 const app = express();
+const { CLIENT_ORIGIN } = require("./config");
 
+app.use(
+  cors({
+    origin: CLIENT_ORIGIN
+  })
+);
 app.use(
   morgan(NODE_ENV === "production" ? "tiny" : "common", {
     skip: () => NODE_ENV === "test"
