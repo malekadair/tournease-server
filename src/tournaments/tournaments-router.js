@@ -13,7 +13,7 @@ const serializeTournament = tournament => ({
   date: xss(tournament.date),
   time: xss(tournament.time),
   game: xss(tournament.game),
-  fee: xss(tournament.fee),
+  fee: xss(tournament.sfee),
   address: xss(tournament.address),
   moredetails: xss(tournament.moredetails)
 });
