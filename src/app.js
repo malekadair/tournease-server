@@ -27,6 +27,7 @@ app.use(cors());
 app.use("/api", tournamentsRouter);
 app.use("/api/auth", authRouter);
 
+
 app.use(function errorHandler(error, req, res, next) {
   let response;
   if (NODE_ENV === "production") {
