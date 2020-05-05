@@ -3,7 +3,7 @@ const express = require("express");
 const TournamentsService = require("./tournaments-service");
 const jsonBodyParser = express.json();
 const xss = require("xss");
-const { requireAuth } = require("../middleware/jwt-auth");
+// const { requireAuth } = require("../middleware/jwt-auth");
 
 const tournamentsRouter = express.Router();
 
@@ -27,7 +27,7 @@ tournamentsRouter
       })
       .catch(next);
   })
-  .post(requireAuth, jsonBodyParser, (req, res, next) => {
+  .post(jsonBodyParser, (req, res, next) => {
     const { title, date, time, game, fee, address, moredetails } = req.body;
     const newTournament = {
       title,
@@ -56,7 +56,7 @@ tournamentsRouter
 
 tournamentsRouter
   .route("/:tourney_id")
-  .all(requireAuth)
+  // .all(requireAuth)
   .all(checkTournamentExists)
 
   .get((req, res) => {
