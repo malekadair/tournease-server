@@ -3,7 +3,6 @@ const express = require("express");
 const TournamentsService = require("./tournaments-service");
 const jsonBodyParser = express.json();
 const xss = require("xss");
-// const { requireAuth } = require("../middleware/jwt-auth");
 
 const tournamentsRouter = express.Router();
 
@@ -56,7 +55,6 @@ tournamentsRouter
 
 tournamentsRouter
   .route("/:tourney_id")
-  // .all(requireAuth)
   .all(checkTournamentExists)
 
   .get((req, res) => {
